@@ -1,0 +1,22 @@
+class Solution {
+    public int maxArea(int[] height) {
+        int right = height.length - 1;
+        int left = 0;
+        int capacity = 0;
+
+        while(right > left){
+            capacity = capacity < (right - left) * Math.min(height[right], height[left]) ? (right - left) * Math.min(height[right], height[left]) : capacity;
+
+            if(height[right] < height[left]){
+                right--;
+            }else{
+                left++;
+            }
+
+        }
+
+        return capacity;
+    }
+}
+//runtime:3 ms
+//memory:40.2 MB

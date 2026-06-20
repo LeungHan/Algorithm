@@ -1,0 +1,54 @@
+class Solution {
+    public static void main(String[] args) {
+        threeSum(new int[] {0, 0,0,0});
+    }
+
+
+    public static List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums.length < 3) {
+            return res;
+        }
+
+        Arrays.sort(nums);
+        for (int left = 0; left < nums.length; left++) {
+            if(nums[left] > 0){
+                break;
+            }
+            if (left > 0 && nums[left] == nums[left - 1]) {
+                continue;
+            }
+            int right = nums.length - 1;
+            int target = - nums[left];
+            for (int cur = left + 1; cur < right; cur++) {
+                if (cur > left + 1 && nums[cur] == nums[cur - 1]) {
+                    continue;
+                }
+
+                // 缩小范围
+                while (cur < right && nums[cur] + nums[right] > target) {
+                    right--;
+                }
+
+                if(cur == right) {
+                    break;
+                }
+                if (nums[cur] + nums[right] < target) {
+                    continue;
+                }
+
+                // 找到相同的结果
+                List<Integer> tmp = new ArrayList<>();
+                tmp.add(nums[left]);
+                tmp.add(nums[right]);
+                tmp.add(nums[cur]);
+                res.add(tmp);
+            }
+        }
+
+        return res;
+    }
+}
+
+//runtime:35 ms
+//memory:59.5 MB

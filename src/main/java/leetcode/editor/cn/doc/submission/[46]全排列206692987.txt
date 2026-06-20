@@ -1,0 +1,33 @@
+class Solution {
+    public List<List<Integer>> res = new ArrayList<>();
+    public List<List<Integer>> permute(int[] nums) {
+        if (nums == null || nums.length < 1){
+            return null;
+        }
+
+        List<Integer> list = new ArrayList<>();
+        for (int num : nums){
+            list.add(num);
+        }
+
+        dfs(list, 0, nums.length);
+        return res;
+    }
+
+    public void dfs(List list, int index, int length){
+        if (index == length){
+            res.add(new ArrayList<>(list));
+            return;
+        }
+
+        for (int i = index; i < length; i++){
+            Collections.swap(list, index, i);
+            dfs(list, index + 1, length);
+            Collections.swap(list, index, i);
+        }
+    }
+
+}
+
+//runtime:1 ms
+//memory:38.7 MB

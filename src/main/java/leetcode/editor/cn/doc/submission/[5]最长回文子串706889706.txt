@@ -1,0 +1,29 @@
+class Solution {
+    public String longestPalindrome(String s) {
+        int left =0, right = 0;
+
+        char[] chars = s.toCharArray();
+        boolean[][] dp = new boolean[chars.length][chars.length];
+        for (int i = chars.length - 1; i >= 0; i--){
+            for (int j = i; j < chars.length; j++) {
+                if (chars[i] != chars[j]) {
+                    continue;
+                }
+
+                if (j - i <= 1 || dp[i +1][j - 1])  {
+                    dp[i][j] = true;
+                }
+
+                if (dp[i][j] && j - i > right - left) {
+                    left = i;
+                    right = j;
+                }
+            }
+        }
+
+        return new String(chars, left, right - left + 1);
+    }
+}
+
+//runtime:59 ms
+//memory:47.4 MB

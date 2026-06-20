@@ -1,0 +1,33 @@
+class Solution {
+    List<String> res;
+
+    public List<String> generateParenthesis(int n) {
+        res = new ArrayList<>();
+
+        dfs(new StringBuffer(), 0, 0, n);
+
+        return res;
+    }
+
+    public void dfs(StringBuffer buffer, int left, int right, int n){
+        if (buffer.length() == n * 2){
+            res.add(buffer.toString());
+            return;
+        }
+
+        if (left < n){
+            buffer.append('(');
+            dfs(buffer, left + 1, right, n);
+            buffer.deleteCharAt(buffer.length() - 1);
+        }
+
+        if (right < left){
+            buffer.append(')');
+            dfs(buffer, left, right + 1, n);
+            buffer.deleteCharAt(buffer.length() - 1);
+        }
+    }
+}
+
+//runtime:0 ms
+//memory:38.1 MB
